@@ -24,7 +24,6 @@ const Tasks: FC<TasksPropType> = ({
 }) => {
   const [isOpenDropdown, setIsOpenDropDown] = useState(false)
   const tasks = useTasksContext()
-  console.log('tasks change', tasks)
 
   const handleClickOption = (value: FilterType) => {
     setIsOpenDropDown(false)
@@ -66,13 +65,16 @@ const Tasks: FC<TasksPropType> = ({
               key={task?.id}
               isChecked={task?.completed}
               description={task?.title}
-              onEdit={(value) => {
-                onEditTask(task?.id, value, task?.completed)
+              onEdit={({ value, isChecked }) => {
+                onEditTask(
+                  task?.id,
+                  value ?? task?.title,
+                  isChecked ?? task?.completed
+                )
               }}
               onDelete={() => {
                 onDeleteTask(task?.id ?? '')
               }}
-              onSave={(value) => console.log('save', value)}
             />
           )
         })}

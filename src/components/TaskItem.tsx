@@ -1,12 +1,11 @@
-import React, { FC, SyntheticEvent, useState } from 'react'
+import React, { FC, useState } from 'react'
 import './taskitem.styles.scss'
 
 type TaskItemPropType = {
   isChecked?: boolean
   description?: string
-  onEdit: (value: string) => void
+  onEdit: (params: { value?: string; isChecked?: boolean }) => void
   onDelete: () => void
-  onSave: (input: string) => void
 }
 
 const TaskItem: FC<TaskItemPropType> = ({
@@ -14,17 +13,18 @@ const TaskItem: FC<TaskItemPropType> = ({
   description = '',
   onEdit = () => undefined,
   onDelete = () => undefined,
-  onSave = () => undefined,
 }) => {
   const [isEdit, setIsEdit] = useState(false)
   const [isOpenDropdown, setIsOpenDropDown] = useState(false)
   const [inputVal, setInputVal] = useState(description)
 
-  const handleToggleCheckbox = (e: SyntheticEvent) => {}
+  const handleToggleCheckbox = () => {
+    onEdit({ isChecked: !isChecked })
+  }
 
   const handleClickSave = () => {
     setIsEdit(false)
-    onEdit(inputVal)
+    onEdit({ value: inputVal })
   }
 
   const handleClickDel = () => {
