@@ -64,7 +64,9 @@ const TaskItem: FC<TaskItemPropType> = ({
                   : 'tasks-item-check-box'
               }
               onClick={handleToggleCheckbox}
-            />
+            >
+              <div className='tasks-item-checkmark-icon' />
+            </div>
             <label>{description}</label>
           </div>
           <div className='tasks-item-more-action'>
