@@ -1,0 +1,65 @@
+.tasks-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 80%;
+  padding: 24px;
+}
+.tasks-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.tasks-select-custom {
+  position: relative;
+  width: 100px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.tasks-select-button {
+  width: 100px;
+  height: 30px;
+  border: none;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+}
+.tasks-arrow-down {
+  border: solid #000000;
+  border-width: 0 1px 1px 0;
+  display: inline-block;
+  padding: 2px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+.tasks-dropdown-content-inactive {
+  display: none;
+}
+.tasks-dropdown-content-active {
+  position: absolute;
+  display: flex;
+  padding: 6px;
+  gap: 6px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 10px;
+  top: 38px;
+  left: 0px;
+  & div {
+    display: flex;
+    width: 100%;
+    padding: 4px;
+    border-radius: 10px;
+    color: black;
+    &:hover {
+      background-color: #595296;
+      color: white;
+    }
+  }
+}

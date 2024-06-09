@@ -1,33 +1,31 @@
+import React, { useState } from 'react'
+
 import TasksProvider from './components/TasksProvider'
 import Progress from './components/Progress'
-import Tasks from './components/Tasks'
+import Tasks, { FilterType } from './components/Tasks'
+import './app.styles.scss'
 
 const App = () => {
+  const [filterValue, setFilterValue] = useState<FilterType>('All')
+
+  const handleFilterChange = (value: FilterType) => {
+    console.log('value', value)
+    setFilterValue(value)
+  }
+
   return (
-    <TasksProvider>
-      <h1>TODO</h1>
-      <Progress />
-      <Tasks />
-    </TasksProvider>
+    <div className='main-container'>
+      <TasksProvider>
+        <div className='content-container'>
+          <Progress />
+          <Tasks
+            defaultFilter={filterValue}
+            onFilterChange={handleFilterChange}
+          />
+        </div>
+      </TasksProvider>
+    </div>
   )
-  // return (
-  //   <div className="App">
-  //     <header className="App-header">
-  //       <img src={logo} className="App-logo" alt="logo" />
-  //       <p>
-  //         Edit <code>src/App.tsx</code> and save to reload.
-  //       </p>
-  //       <a
-  //         className="App-link"
-  //         href="https://reactjs.org"
-  //         target="_blank"
-  //         rel="noopener noreferrer"
-  //       >
-  //         Learn React
-  //       </a>
-  //     </header>
-  //   </div>
-  // );
 }
 
 export default App
