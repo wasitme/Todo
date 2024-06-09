@@ -32,8 +32,8 @@ const Tasks: FC<TasksPropType> = ({
 
   return (
     <div className='tasks-container'>
-      <div className='tasks-title'>
-        <h4>Tasks</h4>
+      <div className='tasks-title-container'>
+        <span className='tasks-title'>Tasks</span>
         <div className='tasks-select-custom'>
           <button
             className='tasks-select-button'

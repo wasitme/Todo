@@ -68,7 +68,15 @@ const TaskItem: FC<TaskItemPropType> = ({
             <label>{description}</label>
           </div>
           <div className='tasks-item-more-action'>
-            <div onClick={() => setIsOpenDropDown(!isOpenDropdown)}>...</div>
+            <input
+              className='tasks-item-action-input'
+              onMouseDown={() => setIsOpenDropDown(!isOpenDropdown)}
+              onBlur={() => {
+                setIsOpenDropDown(false)
+              }}
+              value='...'
+              type='button'
+            />
             <div
               className={
                 isOpenDropdown
@@ -77,7 +85,7 @@ const TaskItem: FC<TaskItemPropType> = ({
               }
             >
               <div
-                onClick={() => {
+                onMouseDown={() => {
                   setIsEdit(true)
                   setIsOpenDropDown(false)
                 }}
