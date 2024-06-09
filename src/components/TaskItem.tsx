@@ -4,8 +4,8 @@ import './taskitem.styles.scss'
 type TaskItemPropType = {
   isChecked?: boolean
   description?: string
-  onEdit: (id: number) => void
-  onDelete: (id: number) => void
+  onEdit: (value: string) => void
+  onDelete: () => void
   onSave: (input: string) => void
 }
 
@@ -24,7 +24,12 @@ const TaskItem: FC<TaskItemPropType> = ({
 
   const handleClickSave = () => {
     setIsEdit(false)
-    onSave(inputVal)
+    onEdit(inputVal)
+  }
+
+  const handleClickDel = () => {
+    setIsOpenDropDown(false)
+    onDelete()
   }
 
   return (
@@ -79,7 +84,14 @@ const TaskItem: FC<TaskItemPropType> = ({
               >
                 Edit
               </div>
-              <div style={{ color: '#F07579' }}>Delete</div>
+              <div
+                style={{ color: '#F07579' }}
+                onClick={() => {
+                  handleClickDel()
+                }}
+              >
+                Delete
+              </div>
             </div>
           </div>
         </div>

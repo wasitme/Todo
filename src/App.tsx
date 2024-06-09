@@ -26,6 +26,18 @@ const App = () => {
     })
   }
 
+  const handleEditTask = (id?: string, value?: string, completed?: boolean) => {
+    fetchHook.put({
+      id,
+      title: value,
+      completed,
+    })
+  }
+
+  const handleDeleteTask = (id?: string) => {
+    fetchHook.del(id)
+  }
+
   useEffect(() => {
     fetchHook?.get()
   }, [])
@@ -39,6 +51,12 @@ const App = () => {
             defaultFilter={filterValue}
             onFilterChange={handleFilterChange}
             onAddTask={handleAddTask}
+            onEditTask={(id, value, completed) =>
+              handleEditTask(id, value, completed)
+            }
+            onDeleteTask={(id) => {
+              handleDeleteTask(id)
+            }}
           />
         </div>
       </TasksProvider>

@@ -11,12 +11,16 @@ type TasksPropType = {
   defaultFilter: FilterType
   onFilterChange: (value: FilterType) => void
   onAddTask: (value: string) => void
+  onEditTask: (id?: string, value?: string, completed?: boolean) => void
+  onDeleteTask: (id: string) => void
 }
 
 const Tasks: FC<TasksPropType> = ({
   defaultFilter,
   onFilterChange,
   onAddTask,
+  onEditTask,
+  onDeleteTask,
 }) => {
   const [isOpenDropdown, setIsOpenDropDown] = useState(false)
   const tasks = useTasksContext()
@@ -59,11 +63,15 @@ const Tasks: FC<TasksPropType> = ({
         {tasks?.map((task, index) => {
           return (
             <TaskItem
-              key={index}
+              key={task?.id}
               isChecked={task?.completed}
               description={task?.title}
-              onEdit={() => console.log('edit')}
-              onDelete={() => console.log('delete')}
+              onEdit={(value) => {
+                onEditTask(task?.id, value, task?.completed)
+              }}
+              onDelete={() => {
+                onDeleteTask(task?.id ?? '')
+              }}
               onSave={(value) => console.log('save', value)}
             />
           )
