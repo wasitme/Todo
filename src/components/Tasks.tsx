@@ -1,4 +1,6 @@
 import React, { FC, useState } from 'react'
+import TaskItem from './TaskItem'
+
 import './tasks.styles.scss'
 
 export type FilterType = 'All' | 'Done' | 'Undone'
@@ -42,29 +44,17 @@ const Tasks: FC<TasksPropType> = ({ defaultFilter, onFilterChange }) => {
             <div onClick={() => handleClickOption('Done')}>Done</div>
             <div onClick={() => handleClickOption('Undone')}>Undone</div>
           </div>
-          {/* <button className='select-button'>
-            <span className='selected-value'>All</span>
-            <span className='arrow'></span>
-          </button> */}
-          {/* <select
-            name='filters'
-            id='filters-select'
-            defaultValue='all'
-            className='tasks-select'
-          >
-            <option className='tasks-select-option' value='all'>
-              All
-            </option>
-            <option className='tasks-select-option' value='done'>
-              Done
-            </option>
-            <option className='tasks-select-option' value='undone'>
-              Undone
-            </option>
-          </select> */}
         </div>
       </div>
-      <div>tasks</div>
+      <div>
+        <TaskItem
+          isChecked={true}
+          description='test task'
+          onEdit={() => console.log('edit')}
+          onDelete={() => console.log('delete')}
+          onSave={(value) => console.log('save', value)}
+        />
+      </div>
     </div>
   )
 }
