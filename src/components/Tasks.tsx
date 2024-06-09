@@ -10,11 +10,17 @@ export type FilterType = 'All' | 'Done' | 'Undone'
 type TasksPropType = {
   defaultFilter: FilterType
   onFilterChange: (value: FilterType) => void
+  onAddTask: (value: string) => void
 }
 
-const Tasks: FC<TasksPropType> = ({ defaultFilter, onFilterChange }) => {
+const Tasks: FC<TasksPropType> = ({
+  defaultFilter,
+  onFilterChange,
+  onAddTask,
+}) => {
   const [isOpenDropdown, setIsOpenDropDown] = useState(false)
   const tasks = useTasksContext()
+  console.log('tasks change', tasks)
 
   const handleClickOption = (value: FilterType) => {
     setIsOpenDropDown(false)
@@ -63,7 +69,11 @@ const Tasks: FC<TasksPropType> = ({ defaultFilter, onFilterChange }) => {
           )
         })}
 
-        <AddTaskItem onEnter={(value) => console.log('enter', value)} />
+        <AddTaskItem
+          onEnter={(value) => {
+            onAddTask(value)
+          }}
+        />
       </div>
     </div>
   )

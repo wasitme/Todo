@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import TasksProvider from './components/TasksProvider'
+
 import Progress from './components/Progress'
 import Tasks, { FilterType } from './components/Tasks'
 import useFetch from './hooks/useFetch'
@@ -8,7 +9,7 @@ import useFetch from './hooks/useFetch'
 import './app.styles.scss'
 
 const App = () => {
-  const fetchHook = useFetch('http://localhost:3001/todos')
+  const fetchHook = useFetch()
 
   const [filterValue, setFilterValue] = useState<FilterType>('All')
 
@@ -17,7 +18,17 @@ const App = () => {
     setFilterValue(value)
   }
 
-  console.log('fetchHook', fetchHook)
+  const handleAddTask = (value: string) => {
+    fetchHook.post({
+      id: crypto.randomUUID() as string,
+      title: value,
+      completed: false,
+    })
+  }
+
+  useEffect(() => {
+    fetchHook?.get()
+  }, [])
 
   return (
     <div className='main-container'>
@@ -27,6 +38,7 @@ const App = () => {
           <Tasks
             defaultFilter={filterValue}
             onFilterChange={handleFilterChange}
+            onAddTask={handleAddTask}
           />
         </div>
       </TasksProvider>

@@ -3,7 +3,7 @@ import { TasksContext, TasksContextType } from './TasksContext'
 
 type TasksProviderType = {
   children: React.ReactNode
-  value: TasksContextType
+  value: TasksContextType[] | null
 }
 
 const TasksProvider: FC<TasksProviderType> = ({ children, value }) => {
