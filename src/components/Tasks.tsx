@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react'
 import TaskItem from './TaskItem'
+import AddTaskItem from './AddTaskItem'
 
 import './tasks.styles.scss'
 
@@ -46,7 +47,7 @@ const Tasks: FC<TasksPropType> = ({ defaultFilter, onFilterChange }) => {
           </div>
         </div>
       </div>
-      <div>
+      <div className='tasks-list-container'>
         <TaskItem
           isChecked={true}
           description='test task'
@@ -54,6 +55,7 @@ const Tasks: FC<TasksPropType> = ({ defaultFilter, onFilterChange }) => {
           onDelete={() => console.log('delete')}
           onSave={(value) => console.log('save', value)}
         />
+        <AddTaskItem onEnter={(value) => console.log('enter', value)} />
       </div>
     </div>
   )
