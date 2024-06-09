@@ -1,3 +1,11 @@
 import { createContext } from 'react'
 
-export const TasksContext = createContext([{ id: undefined, title: undefined }])
+export type TasksContextType = {
+  id?: string
+  title?: string
+  completed?: boolean
+}[]
+
+export const TasksContext = createContext<TasksContextType>([
+  { id: undefined, title: undefined, completed: undefined },
+])

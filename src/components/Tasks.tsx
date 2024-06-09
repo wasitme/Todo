@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react'
 import TaskItem from './TaskItem'
 import AddTaskItem from './AddTaskItem'
+import { useTasksContext } from './TasksProvider'
 
 import './tasks.styles.scss'
 
@@ -13,6 +14,7 @@ type TasksPropType = {
 
 const Tasks: FC<TasksPropType> = ({ defaultFilter, onFilterChange }) => {
   const [isOpenDropdown, setIsOpenDropDown] = useState(false)
+  const tasks = useTasksContext()
 
   const handleClickOption = (value: FilterType) => {
     setIsOpenDropDown(false)
@@ -48,13 +50,19 @@ const Tasks: FC<TasksPropType> = ({ defaultFilter, onFilterChange }) => {
         </div>
       </div>
       <div className='tasks-list-container'>
-        <TaskItem
-          isChecked={true}
-          description='test task'
-          onEdit={() => console.log('edit')}
-          onDelete={() => console.log('delete')}
-          onSave={(value) => console.log('save', value)}
-        />
+        {tasks?.map((task, index) => {
+          return (
+            <TaskItem
+              key={index}
+              isChecked={task?.completed}
+              description={task?.title}
+              onEdit={() => console.log('edit')}
+              onDelete={() => console.log('delete')}
+              onSave={(value) => console.log('save', value)}
+            />
+          )
+        })}
+
         <AddTaskItem onEnter={(value) => console.log('enter', value)} />
       </div>
     </div>

@@ -2,15 +2,15 @@ import React, { FC, SyntheticEvent, useState } from 'react'
 import './taskitem.styles.scss'
 
 type TaskItemPropType = {
-  isChecked: boolean
-  description: string
+  isChecked?: boolean
+  description?: string
   onEdit: (id: number) => void
   onDelete: (id: number) => void
   onSave: (input: string) => void
 }
 
 const TaskItem: FC<TaskItemPropType> = ({
-  isChecked,
+  isChecked = false,
   description = '',
   onEdit = () => undefined,
   onDelete = () => undefined,

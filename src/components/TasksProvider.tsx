@@ -1,11 +1,16 @@
-import React, { FC, PropsWithChildren, useContext } from 'react'
-import { TasksContext } from './TasksContext'
+import React, { FC, useContext } from 'react'
+import { TasksContext, TasksContextType } from './TasksContext'
 
-const TasksProvider: FC<PropsWithChildren> = ({ children }) => {
-  return <TasksContext.Provider value={[]}>{children}</TasksContext.Provider>
+type TasksProviderType = {
+  children: React.ReactNode
+  value: TasksContextType
 }
 
-export const useTasks = () => {
+const TasksProvider: FC<TasksProviderType> = ({ children, value }) => {
+  return <TasksContext.Provider value={value}>{children}</TasksContext.Provider>
+}
+
+export const useTasksContext = () => {
   return useContext(TasksContext)
 }
 
