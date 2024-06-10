@@ -14,16 +14,22 @@ const Progress: FC = () => {
     }
   }, [tasks])
 
-  console.log('doneTasks', doneTasks)
+  const getPercent = () => {
+    const percent = (doneTasks?.length ?? 0 * 100) / (tasks?.length ?? 1)
+    console.log('percent', percent)
+    return `${percent * 100}%`
+  }
 
   return (
     <div className='progress-container'>
       <div className='progress-content-container'>
-        <h2 className='progress-title'>Progress</h2>
+        <div className='progress-title'>Progress</div>
         <div className='progress-bar'>
-          <div />
+          <div style={{ width: getPercent() }} />
         </div>
-        <div>{`${(doneTasks ?? []).length} completed`}</div>
+        <div className='progress-description'>{`${
+          (doneTasks ?? []).length
+        } completed`}</div>
       </div>
     </div>
   )
