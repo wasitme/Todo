@@ -80,7 +80,6 @@ const TaskItem: FC<TaskItemPropType> = ({
               <div className='tasks-item-more-action-dot' />
               <div className='tasks-item-more-action-dot' />
               <div className='tasks-item-more-action-dot' />
-              {/* ... */}
             </button>
             <div
               className={

@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
 import TasksProvider from './components/TasksProvider'
-import { TasksContextType } from './components/TasksContext'
 
 import Progress from './components/Progress'
-import Tasks, { FilterType } from './components/Tasks'
+import Tasks from './components/Tasks'
 import useFetch from './hooks/useFetch'
 
 import './app.styles.scss'
