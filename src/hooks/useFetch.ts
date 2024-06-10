@@ -20,147 +20,118 @@ const useFetch = (): UseFetchResultType => {
   const [error, setError] = useState<any | null>(null)
 
   const get = () => {
-    setTimeout(() => {
-      setIsLoading(true)
-      setIsSuccess(false)
-      setError(null)
-      fetch(url)
-        .then((res) => {
-          if (!res.ok) {
-            throw Error('Error fetching users data')
-          }
-          return res.json()
-        })
-        .then((data) => {
-          setData(data)
-          setIsLoading(false)
-          setIsSuccess(true)
-          setError(null)
-        })
-        .catch((err) => {
-          setIsLoading(false)
-          setIsSuccess(false)
-          setError(err.message)
-        })
-    }, 1000)
+    setIsLoading(true)
+    setIsSuccess(false)
+    setError(null)
+    fetch(url)
+      .then((res) => {
+        if (!res.ok) {
+          throw Error('Error fetching users data')
+        }
+        return res.json()
+      })
+      .then((data) => {
+        setData(data)
+        setIsLoading(false)
+        setIsSuccess(true)
+        setError(null)
+      })
+      .catch((err) => {
+        setIsLoading(false)
+        setIsSuccess(false)
+        setError(err.message)
+      })
   }
   const post = (input: TasksContextType) => {
-    setTimeout(() => {
-      setIsLoading(true)
-      setIsSuccess(false)
-      setError(null)
-      fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(input), // body data type must match "Content-Type" header
+    setIsLoading(true)
+    setIsSuccess(false)
+    setError(null)
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(input), // body data type must match "Content-Type" header
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw Error('Error fetching users data')
+        }
+        return res.json()
       })
-        .then((res) => {
-          if (!res.ok) {
-            throw Error('Error fetching users data')
-          }
-          return res.json()
-        })
-        .then((res) => {
-          console.log('post response', res)
-          setData([...(data ?? []), res])
-          setIsLoading(false)
-          setIsSuccess(true)
-          setError(null)
-        })
-        .catch((err) => {
-          setIsLoading(false)
-          setIsSuccess(false)
-          setError(err.message)
-        })
-    }, 1000)
+      .then((res) => {
+        console.log('post response', res)
+        setData([...(data ?? []), res])
+        setIsLoading(false)
+        setIsSuccess(true)
+        setError(null)
+      })
+      .catch((err) => {
+        setIsLoading(false)
+        setIsSuccess(false)
+        setError(err.message)
+      })
   }
   const put = (input: TasksContextType) => {
-    setTimeout(() => {
-      setIsLoading(true)
-      setIsSuccess(false)
-      setError(null)
-      fetch(`${url}/${input.id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(input),
+    setIsLoading(true)
+    setIsSuccess(false)
+    setError(null)
+    fetch(`${url}/${input.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(input),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw Error('Error fetching users data')
+        }
+        return res.json()
       })
-        .then((res) => {
-          if (!res.ok) {
-            throw Error('Error fetching users data')
-          }
-          return res.json()
-        })
-        .then((res) => {
-          const map = new Map(
-            [...(data ?? []), res].map((item) => [item.id, item])
-          )
-          setData(Array.from(map.values()))
-          setIsLoading(false)
-          setIsSuccess(true)
-          setError(null)
-        })
-        .catch((err) => {
-          setIsLoading(false)
-          setIsSuccess(false)
-          setError(err.message)
-        })
-    }, 1000)
+      .then((res) => {
+        const map = new Map(
+          [...(data ?? []), res].map((item) => [item.id, item])
+        )
+        setData(Array.from(map.values()))
+        setIsLoading(false)
+        setIsSuccess(true)
+        setError(null)
+      })
+      .catch((err) => {
+        setIsLoading(false)
+        setIsSuccess(false)
+        setError(err.message)
+      })
   }
   const del = (id: TasksContextType['id']) => {
-    setTimeout(() => {
-      setIsLoading(true)
-      setIsSuccess(false)
-      setError(null)
-      fetch(`${url}/${id}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+    setIsLoading(true)
+    setIsSuccess(false)
+    setError(null)
+    fetch(`${url}/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw Error('Error fetching users data')
+        }
+        return res.json()
       })
-        .then((res) => {
-          if (!res.ok) {
-            throw Error('Error fetching users data')
-          }
-          return res.json()
-        })
-        .then(() => {
-          setData([...(data ?? [])].filter((item) => item?.id !== id))
-          setIsLoading(false)
-          setIsSuccess(true)
-          setError(null)
-        })
-        .catch((err) => {
-          setIsLoading(false)
-          setIsSuccess(false)
-          setError(err.message)
-        })
-    }, 1000)
+      .then(() => {
+        setData([...(data ?? [])].filter((item) => item?.id !== id))
+        setIsLoading(false)
+        setIsSuccess(true)
+        setError(null)
+      })
+      .catch((err) => {
+        setIsLoading(false)
+        setIsSuccess(false)
+        setError(err.message)
+      })
   }
-
-  //   useEffect(() => {
-  //     setTimeout(() => {
-  //       fetch(url)
-  //         .then((res) => {
-  //           if (!res.ok) {
-  //             throw Error('Error fetching users data')
-  //           }
-  //           return res.json()
-  //         })
-  //         .then((data) => {
-  //           setData(data)
-  //           setIsLoading(false)
-  //           setError(null)
-  //         })
-  //         .catch((err) => {
-  //           setIsLoading(false)
-  //           setError(err.message)
-  //         })
-  //     }, 1000)
-  //   }, [url])
 
   return { data, isLoading, isSuccess, error, get, post, put, del }
 }
