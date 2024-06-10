@@ -31,6 +31,7 @@
   align-items: center;
   padding: 10px;
   border-radius: 10px;
+  cursor: pointer;
 }
 .tasks-arrow-down {
   border: solid #000000;
@@ -40,11 +41,9 @@
   transform: rotate(45deg);
   -webkit-transform: rotate(45deg);
 }
-.tasks-dropdown-content-inactive {
-  display: none;
-}
-.tasks-dropdown-content-active {
+.tasks-dropdown-content {
   position: absolute;
+  z-index: 1;
   display: flex;
   padding: 6px;
   gap: 6px;
@@ -55,12 +54,16 @@
   border-radius: 10px;
   top: 38px;
   left: 0px;
+  &.inactive {
+    display: none;
+  }
   & div {
     display: flex;
     width: 100%;
     padding: 4px;
     border-radius: 10px;
     color: black;
+    cursor: pointer;
     &:hover {
       background-color: #595296;
       color: white;

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import TasksProvider from './components/TasksProvider'
+import { TasksContextType } from './components/TasksContext'
 
 import Progress from './components/Progress'
 import Tasks, { FilterType } from './components/Tasks'
@@ -12,10 +13,23 @@ const App = () => {
   const fetchHook = useFetch()
 
   const [filterValue, setFilterValue] = useState<FilterType>('All')
+  const [tasksList, setTasksList] = useState<TasksContextType[] | null>(null)
 
   const handleFilterChange = (value: FilterType) => {
-    console.log('value', value)
     setFilterValue(value)
+    switch (value) {
+      case 'All':
+        setTasksList(fetchHook?.data)
+        break
+      case 'Done':
+        setTasksList((fetchHook?.data ?? []).filter((task) => task.completed))
+        break
+      case 'Undone':
+        setTasksList((fetchHook?.data ?? []).filter((task) => !task.completed))
+        break
+      default:
+        return setTasksList(fetchHook?.data)
+    }
   }
 
   const handleAddTask = (value: string) => {
@@ -42,9 +56,15 @@ const App = () => {
     fetchHook?.get()
   }, [])
 
+  useEffect(() => {
+    if (fetchHook?.data) {
+      setTasksList(fetchHook?.data)
+    }
+  }, [fetchHook?.data])
+
   return (
     <div className='main-container'>
-      <TasksProvider value={fetchHook?.data}>
+      <TasksProvider value={tasksList}>
         <div className='content-container'>
           <Progress />
           <Tasks

@@ -37,9 +37,10 @@ const Tasks: FC<TasksPropType> = ({
         <div className='tasks-select-custom'>
           <button
             className='tasks-select-button'
-            onClick={(e) => {
+            onMouseDown={() => {
               setIsOpenDropDown(!isOpenDropdown)
             }}
+            onBlur={() => setIsOpenDropDown(false)}
           >
             {defaultFilter}
             <div className='tasks-arrow-down' />
@@ -48,13 +49,13 @@ const Tasks: FC<TasksPropType> = ({
             id='tasks-select-dropdown'
             className={
               isOpenDropdown
-                ? 'tasks-dropdown-content-active'
-                : 'tasks-dropdown-content-inactive'
+                ? 'tasks-dropdown-content'
+                : 'tasks-dropdown-content inactive'
             }
           >
-            <div onClick={() => handleClickOption('All')}>All</div>
-            <div onClick={() => handleClickOption('Done')}>Done</div>
-            <div onClick={() => handleClickOption('Undone')}>Undone</div>
+            <div onMouseDown={() => handleClickOption('All')}>All</div>
+            <div onMouseDown={() => handleClickOption('Done')}>Done</div>
+            <div onMouseDown={() => handleClickOption('Undone')}>Undone</div>
           </div>
         </div>
       </div>
