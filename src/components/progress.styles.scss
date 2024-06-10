@@ -1,22 +1,26 @@
 .progress-container {
+  min-width: 80%;
+  background-color: #f07579;
+  border-radius: 20px;
+}
+.progress-content-container {
   display: flex;
   flex-direction: column;
-  width: 80%;
-  max-width: 500px;
-  background-color: #f07579;
   padding: 20px;
-  border-radius: 20px;
+}
+.progress-title {
+  color: white;
 }
 .progress-bar {
   background-color: black;
   border-radius: 13px;
   /* (height of inner div) / 2 + padding */
-  padding: 3px;
+  // padding: 3px;
   & div {
-    background-color: orange;
+    background-color: white;
     width: 40%;
     /* Adjust with JavaScript */
-    height: 20px;
+    height: 10px;
     border-radius: 10px;
   }
 }

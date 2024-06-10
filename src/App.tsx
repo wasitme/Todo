@@ -12,26 +12,6 @@ import './app.styles.scss'
 const App = () => {
   const fetchHook = useFetch()
 
-  const [filterValue, setFilterValue] = useState<FilterType>('All')
-  const [tasksList, setTasksList] = useState<TasksContextType[] | null>(null)
-
-  const handleFilterChange = (value: FilterType) => {
-    setFilterValue(value)
-    switch (value) {
-      case 'All':
-        setTasksList(fetchHook?.data)
-        break
-      case 'Done':
-        setTasksList((fetchHook?.data ?? []).filter((task) => task.completed))
-        break
-      case 'Undone':
-        setTasksList((fetchHook?.data ?? []).filter((task) => !task.completed))
-        break
-      default:
-        return setTasksList(fetchHook?.data)
-    }
-  }
-
   const handleAddTask = (value: string) => {
     fetchHook.post({
       id: crypto.randomUUID() as string,
@@ -56,20 +36,12 @@ const App = () => {
     fetchHook?.get()
   }, [])
 
-  useEffect(() => {
-    if (fetchHook?.data) {
-      setTasksList(fetchHook?.data)
-    }
-  }, [fetchHook?.data])
-
   return (
     <div className='main-container'>
-      <TasksProvider value={tasksList}>
+      <TasksProvider value={fetchHook?.data}>
         <div className='content-container'>
           <Progress />
           <Tasks
-            defaultFilter={filterValue}
-            onFilterChange={handleFilterChange}
             onAddTask={handleAddTask}
             onEditTask={(id, value, completed) =>
               handleEditTask(id, value, completed)

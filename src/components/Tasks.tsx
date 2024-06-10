@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react'
+import React, { FC, useState, useEffect } from 'react'
 import TaskItem from './TaskItem'
 import AddTaskItem from './AddTaskItem'
 import { useTasksContext } from './TasksProvider'
@@ -8,27 +8,39 @@ import './tasks.styles.scss'
 export type FilterType = 'All' | 'Done' | 'Undone'
 
 type TasksPropType = {
-  defaultFilter: FilterType
-  onFilterChange: (value: FilterType) => void
   onAddTask: (value: string) => void
   onEditTask: (id?: string, value?: string, completed?: boolean) => void
   onDeleteTask: (id: string) => void
 }
 
-const Tasks: FC<TasksPropType> = ({
-  defaultFilter,
-  onFilterChange,
-  onAddTask,
-  onEditTask,
-  onDeleteTask,
-}) => {
-  const [isOpenDropdown, setIsOpenDropDown] = useState(false)
+const Tasks: FC<TasksPropType> = ({ onAddTask, onEditTask, onDeleteTask }) => {
   const tasks = useTasksContext()
 
-  const handleClickOption = (value: FilterType) => {
+  const [isOpenDropdown, setIsOpenDropDown] = useState(false)
+  const [filterValue, setFilterValue] = useState<FilterType>('All')
+  const [tasksData, setTasksData] = useState(tasks)
+
+  const handleClickFilterOption = (value: FilterType) => {
     setIsOpenDropDown(false)
-    onFilterChange(value)
+    setFilterValue(value)
+    switch (value) {
+      case 'All':
+        setTasksData(tasks)
+        break
+      case 'Done':
+        setTasksData((tasks ?? []).filter((task) => task.completed))
+        break
+      case 'Undone':
+        setTasksData((tasks ?? []).filter((task) => !task.completed))
+        break
+      default:
+        return setTasksData(tasks)
+    }
   }
+
+  useEffect(() => {
+    if (tasks) setTasksData(tasks)
+  }, [tasks])
 
   return (
     <div className='tasks-container'>
@@ -42,7 +54,7 @@ const Tasks: FC<TasksPropType> = ({
             }}
             onBlur={() => setIsOpenDropDown(false)}
           >
-            {defaultFilter}
+            {filterValue}
             <div className='tasks-arrow-down' />
           </button>
           <div
@@ -53,14 +65,16 @@ const Tasks: FC<TasksPropType> = ({
                 : 'tasks-dropdown-content inactive'
             }
           >
-            <div onMouseDown={() => handleClickOption('All')}>All</div>
-            <div onMouseDown={() => handleClickOption('Done')}>Done</div>
-            <div onMouseDown={() => handleClickOption('Undone')}>Undone</div>
+            <div onMouseDown={() => handleClickFilterOption('All')}>All</div>
+            <div onMouseDown={() => handleClickFilterOption('Done')}>Done</div>
+            <div onMouseDown={() => handleClickFilterOption('Undone')}>
+              Undone
+            </div>
           </div>
         </div>
       </div>
       <div className='tasks-list-container'>
-        {tasks?.map((task, index) => {
+        {tasksData?.map((task, index) => {
           return (
             <TaskItem
               key={task?.id}
