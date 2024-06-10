@@ -16,7 +16,6 @@ const Progress: FC = () => {
 
   const getPercent = () => {
     const percent = (doneTasks?.length ?? 0 * 100) / (tasks?.length ?? 1)
-    console.log('percent', percent)
     return `${percent * 100}%`
   }
 

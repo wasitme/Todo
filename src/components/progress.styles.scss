@@ -2,6 +2,9 @@
   min-width: 80%;
   background-color: #f07579;
   border-radius: 20px;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 }
 .progress-content-container {
   display: flex;

@@ -70,15 +70,18 @@ const TaskItem: FC<TaskItemPropType> = ({
             <label>{description}</label>
           </div>
           <div className='tasks-item-more-action'>
-            <input
-              className='tasks-item-action-input'
+            <button
+              className='tasks-item-action-button'
               onMouseDown={() => setIsOpenDropDown(!isOpenDropdown)}
               onBlur={() => {
                 setIsOpenDropDown(false)
               }}
-              value='...'
-              type='button'
-            />
+            >
+              <div className='tasks-item-more-action-dot' />
+              <div className='tasks-item-more-action-dot' />
+              <div className='tasks-item-more-action-dot' />
+              {/* ... */}
+            </button>
             <div
               className={
                 isOpenDropdown
@@ -96,7 +99,7 @@ const TaskItem: FC<TaskItemPropType> = ({
               </div>
               <div
                 style={{ color: '#F07579' }}
-                onClick={() => {
+                onMouseDown={() => {
                   handleClickDel()
                 }}
               >

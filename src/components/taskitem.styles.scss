@@ -45,10 +45,18 @@
   position: relative;
   cursor: pointer;
 }
-.tasks-item-action-input {
+.tasks-item-more-action-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background-color: #9796aa;
+}
+.tasks-item-action-button {
   border: none;
   cursor: pointer;
   background-color: #ffffff;
+  display: flex;
+  gap: 2px;
 }
 .tasks-item-more-action-dropdown {
   position: absolute;

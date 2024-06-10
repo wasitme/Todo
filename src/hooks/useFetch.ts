@@ -51,7 +51,7 @@ const useFetch = (): UseFetchResultType => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(input), // body data type must match "Content-Type" header
+      body: JSON.stringify(input),
     })
       .then((res) => {
         if (!res.ok) {
@@ -60,7 +60,6 @@ const useFetch = (): UseFetchResultType => {
         return res.json()
       })
       .then((res) => {
-        console.log('post response', res)
         setData([...(data ?? []), res])
         setIsLoading(false)
         setIsSuccess(true)
